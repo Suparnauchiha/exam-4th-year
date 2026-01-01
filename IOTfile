@@ -1,0 +1,116 @@
+Iot Lab Experiment -
+
+EXPERIMENT 1: Introduction to Arduino Platform and Programming
+Program:
+void setup() {
+pinMode(13, OUTPUT);
+}
+void loop() {
+digitalWrite(13, HIGH);
+delay(1000);
+digitalWrite(13, LOW);
+delay(1000);
+}
+OUTPUT
+digitalWrite(13, HIGH); → Turns the LED ON  
+delay(1000); → Keeps LED ON for 1 second  
+digitalWrite(13, LOW); → Turns the LED OFF  
+delay(1000); → Keeps LED OFF for 1 second  
+The loop repeats continuously.
+The output of the program is a blinking LED connected to digital pin 13, which turns ON for 1 second and OFF for 1 second repeatedly.
+
+------------------------------------------------------------------------------------------------------------------------
+EXPERIMENT 2: Interfacing Arduino with Zigbee Module
+Program:
+void setup() {
+  Serial.begin(9600);
+}
+void loop() {
+  Serial.println("Hello Zigbee");
+  delay(2000);
+}
+OUTPUT
+The Arduino continuously transmits the message “Hello Zigbee” through the Zigbee module at an interval of 2 seconds using serial communication.
+------------------------------------------------------------------------------------------------------------------------
+
+
+EXPERIMENT 3: Interfacing Arduino with GSM Module
+Program:
+
+void setup() {
+  Serial.begin(9600);
+  Serial.println("AT");
+  delay(1000);
+  Serial.println("AT+CMGF=1");
+  delay(1000);
+  Serial.println("AT+CMGS=\"+91XXXXXXXXXX\"");
+  delay(1000);
+  Serial.println("Hello from Arduino GSM");
+  delay(1000);
+  Serial.write(26);
+}
+void loop() {}
+ 
+OUTPUT
+GSM module initializes successfully
+SMS is transmitted once when Arduino is powered ON or reset
+loop() is empty, so message is sent only one time
+The Arduino sends an SMS message “Hello from Arduino GSM” to the specified mobile number using the GSM module through AT commands.
+------------------------------------------------------------------------------------------------------------------------
+
+
+EXPERIMENT 4: Interfacing Arduino with Bluetooth Module
+Program:
+
+void setup() {
+  Serial.begin(9600);
+}
+void loop() {
+  if (Serial.available()) {
+    char data = Serial.read();
+    Serial.println(data);
+  }
+}
+OUTPUT 
+Any character typed in the Serial Monitor is displayed back on the Serial Monitor, one character per line.
+------------------------------------------------------------------------------------------------------------------------
+
+
+EXPERIMENT 5: Introduction to Raspberry Pi and Python
+Program:
+
+import RPi.GPIO as GPIO
+import time
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(17, GPIO.IN)
+while True:
+    if GPIO.input(17):
+        print("Button Pressed")
+    else:
+        print("Button Released")
+    time.sleep(1)
+
+OUTPUT 
+Raspberry Pi successfully detects button state
+Output changes depending on whether the button is pressed or released
+The program continuously monitors the push button connected to GPIO pin 17 and displays “Button Pressed” or “Button Released” on the terminal at 1-second intervals.
+------------------------------------------------------------------------------------------------------------------------
+
+
+EXPERIMENT 6: Interfacing Sensors with Raspberry Pi
+Program:
+import Adafruit_DHT
+sensor = Adafruit_DHT.DHT11
+pin = 4
+humidity, temperature = Adafruit_DHT.read(sensor, pin)
+if humidity is not None and temperature is not None:
+    print("Temp=", temperature, "Humidity=", humidity)
+else:
+    print("Sensor failure")
+
+OUTPUT
+If the DHT11 sensor is working properly:
+Temp= 27 Humidity= 60
+If the sensor is not connected or fails to respond:
+Sensor failure
+The program reads temperature and humidity from the DHT11 sensor. When valid data is received, the values are displayed; otherwise, a sensor failure message is shown
